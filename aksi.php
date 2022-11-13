@@ -29,6 +29,6 @@ if (@$_GET['i'] == 'inputdiagnosa') {
         echo json_encode(array('status' => 'sukses', 'url' => 'riwayat.php'), JSON_PRETTY_PRINT);
       } else {
           header("Content-Type: application/json");
-        echo json_encode(array('status' => 'gagal'), JSON_PRETTY_PRINT);
+        echo json_encode(array('status' => 'gagal', 'url' => 'diagnosa.php'), JSON_PRETTY_PRINT);
       }
   }

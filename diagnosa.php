@@ -66,7 +66,7 @@ include 'header.php';
 </div>
 
 </main>
-
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript" src="<?=$konfig['url']?>/assets/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="<?=$konfig['url']?>/assets/js/mdb.min.js"></script>
 <script type="text/javascript" src="<?=$konfig['url']?>/assets/js/ecommere/popper.min.js"></script>
@@ -74,7 +74,7 @@ include 'header.php';
 <script type="text/javascript" src="<?=$konfig['url']?>/assets/sa/sweetalert-dev.js"></script>
 <script type="text/javascript" src="<?=$konfig['url']?>/assets/js/jquery.PrintArea.js"></script>
 <script type="text/javascript" src="<?=$konfig['url']?>assets/js/addons/datatables.min.js"></script>
-<!--
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script type="text/javascript">
 							$(document).ready(function() {
 								setTimeout(function() {
@@ -113,83 +113,51 @@ include 'header.php';
 
     // Tooltips Initialization
     $(function () {
-        $('[data-toggle="tooltip"]').tooltip()
+      $('[data-toggle="tooltip"]').tooltip()
     })
 
-    function cek(id){
-      $('#'+id).prop('checked', true);
+    function cek(id) {
+      $('#' + id).prop('checked', true);
     }
 
-    $(document).ready(function(){
-    
+    $(document).ready(function () {
 
-        $('#formdiagnosa').on('submit', function (e) {
 
-                e.preventDefault();
+      $('#formdiagnosa').on('submit', function (e) {
 
-              var datas= $("#formdiagnosa").serialize();
+        e.preventDefault();
 
-              $.ajax({
-                 type: "POST",
-                 url: "aksi.php?i=inputdiagnosa",
-                 dataType: "json",
-                 data: datas
-              }).done(function( data ) {
-                if (data.status == 'sukses') {
-                    swal({
-                        type: 'success',
-                        title: 'Berhasil di Input',
-                        timer: 1500
-                    });
-                    setTimeout(function() {
-                        location = data.url;
-                    }, 1700);
-              } else {
-                toastr.error('Gagal di Tambahkan');
-              }
-                
-             });
+        var datas = $("#formdiagnosa").serialize();
+
+        swal({
+          title: "Yakin ingin menyimpan data?",
+          text: "pilih minimal 5 gejala yang di diagnosa.",
+          icon: "warning",
+          buttons: true,
+          dangerMode: false,
+
+
+        }).then(function (data) {
+
+          if (data.status = "sukses") {
+            swal("data telah tersimpan", {
+              icon: "success",
+
             });
-        });
-</script>
-
-
-
-
-
-
-
-<!--
-<script type="text/javascript">
-
-  $(document).ready(() => {
-          // SideNav Button Initialization
-          $(".button-collapse").sideNav();
-              // SideNav Scrollbar Initialization
-              var sideNavScrollbar = document.querySelector('.custom-scrollbar');
-              var ps = new PerfectScrollbar(sideNavScrollbar);
-
-    new WOW().init();
-  });
-
-  (function() {
-    'use strict';
-    window.addEventListener('load', function() {
-      // Fetch all the forms we want to apply custom Bootstrap validation styles to
-      var forms = document.getElementsByClassName('needs-validation');
-      // Loop over them and prevent submission
-      var validation = Array.prototype.filter.call(forms, function(form) {
-        form.addEventListener('submit', function(event) {
-          if (form.checkValidity() === false) {
-            event.preventDefault();
-            event.stopPropagation();
+            $.ajax({
+              type: "POST",
+              url: "aksi.php?i=inputdiagnosa",
+              dataType: "json",
+              data: datas,
+            })
+          } else {
+            swal("data berhasil di reset");
+            
           }
-          form.classList.add('was-validated');
-        }, false);
+        });
       });
-    }, false);
-  })();
-</script>
--->
+    }); 
+    </script>
+
 </body>
 </html>
